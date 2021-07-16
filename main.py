@@ -40,6 +40,7 @@ def Neigh_names():
 # ----------Dash App---------------------------------------
 
 app = dash.Dash(__name__)
+server = app.server
 
 # reset button
 reset_data = html.A(html.Button('Click Here to Reset Map',
