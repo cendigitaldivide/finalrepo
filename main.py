@@ -15,7 +15,7 @@ now = datetime.now()
 dt = now.strftime("%d/%m/%Y %H:%M:%S")
 
 # Read geojson files
-d1 = open(r"/backend_resources/results/orlando_averaged_2019-01-01.geojson")
+d1 = open(r".../backend_resources/results/orlando_averaged_2019-01-01.geojson")
 data = json.load(d1)
 d2 = data["features"][0]
 
