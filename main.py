@@ -15,7 +15,7 @@ now = datetime.now()
 dt = now.strftime("%d/%m/%Y %H:%M:%S")
 
 # Read geojson files
-d1 = open(r"/app/backend_resources/results/orlando_averaged_2019-01-01.geojson")
+d1 = open(r"backend_resources\results\orlando_averaged_2019-01-01.geojson")
 data = json.load(d1)
 d2 = data["features"][0]
 
@@ -40,7 +40,6 @@ def Neigh_names():
 # ----------Dash App---------------------------------------
 
 app = dash.Dash(__name__)
-server = app.server
 
 # reset button
 reset_data = html.A(html.Button('Click Here to Reset Map',
@@ -249,7 +248,7 @@ app.layout = html.Div([container_1])
 )
 # call back function
 def update_map(qrt, name, int_speed):
-    d1 = open(r"/app/backend_resources/results/orlando_averaged_" + qrt + ".geojson")
+    d1 = open(r"backend_resources\results\orlando_averaged_" + qrt + ".geojson")
     data = json.load(d1)
     base = pd.json_normalize(data, record_path=['features'])
     base = base.iloc[:, [6, 7, 8]]
@@ -261,8 +260,17 @@ def update_map(qrt, name, int_speed):
     fig = px.choropleth_mapbox(base, geojson=data, locations="NeighName", color=int_speed, featureidkey="properties.NeighName",
                                center={"lat": 28.488137, "lon": -81.331054},
                                color_continuous_scale="tempo",
-                               mapbox_style="carto-positron", zoom=10)
+                               mapbox_style="carto-positron", zoom=10, hover_name = 'NeighName', hover_data = {'NeighName':False},
+                              labels={'avg_d_mbps':'Avg. Download(mbps)', 'avg_u_mbps':'Avg. Upload(mbps)'})
     fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
+    fig.update_layout(
+    hoverlabel=dict(
+        bgcolor="white",
+        font_size=16,
+        font_family="Sans"
+    )
+   
+)
 
     #date and time
     now = datetime.now()
