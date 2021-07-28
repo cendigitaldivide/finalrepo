@@ -15,7 +15,7 @@ now = datetime.now()
 dt = now.strftime("%d/%m/%Y %H:%M:%S")
 
 # Read geojson files
-d1 = open(r"backend_resources\results\orlando_averaged_2019-01-01.geojson")
+d1 = open(r"app/backend_resources/results/orlando_averaged_2019-01-01.geojson")
 data = json.load(d1)
 d2 = data["features"][0]
 
@@ -248,7 +248,7 @@ app.layout = html.Div([container_1])
 )
 # call back function
 def update_map(qrt, name, int_speed):
-    d1 = open(r"backend_resources\results\orlando_averaged_" + qrt + ".geojson")
+    d1 = open(r"app/backend_resources/results/orlando_averaged_" + qrt + ".geojson")
     data = json.load(d1)
     base = pd.json_normalize(data, record_path=['features'])
     base = base.iloc[:, [6, 7, 8]]
